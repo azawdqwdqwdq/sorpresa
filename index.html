@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Esperanza 💜</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* 💌 CARTA FIJA */
+.carta {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.85);
+    border: 1px solid #c084fc;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: #c084fc;
+    width: 85%;
+    max-width: 320px;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+}
+
+/* 🖤 KUROMI */
+.kuromi {
+    position: absolute;
+    width: 70px;
+    opacity: 0;
+    animation: aparecer 1.5s ease forwards, flotar 6s infinite ease-in-out;
+}
+
+@keyframes aparecer {
+    to { opacity: 1; }
+}
+
+@keyframes flotar {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+
+/* ✨ ESTRELLAS */
+.estrella {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #c084fc;
+    animation: brillar 2s infinite alternate;
+}
+
+@keyframes brillar {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+}
+
+/* 📱 móvil */
+@media (max-width: 480px) {
+    .kuromi {
+        width: 50px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 💌 CARTA -->
+<div class="carta">
+    <h1>Para: Esperanza 💜</h1>
+    <p>Un mundo oscuro, adorable y lleno de magia… solo para ti 🖤✨</p>
+</div>
+
+<script>
+
+// 🖤 USANDO IMAGEN LOCAL
+const imagenKuromi = "kuromi.png";
+
+// ✨ estrellas
+for (let i = 0; i < 100; i++) {
+    let estrella = document.createElement("div");
+    estrella.classList.add("estrella");
+    estrella.style.left = Math.random() * window.innerWidth + "px";
+    estrella.style.top = Math.random() * window.innerHeight + "px";
+    document.body.appendChild(estrella);
+}
+
+// 🖤 crear kuromi
+function crearKuromi() {
+    let img = document.createElement("img");
+    img.src = imagenKuromi;
+    img.classList.add("kuromi");
+
+    let maxX = window.innerWidth - 80;
+    let maxY = window.innerHeight - 80;
+
+    img.style.left = Math.random() * maxX + "px";
+    img.style.top = Math.random() * maxY + "px";
+
+    return img;
+}
+
+// 🖤 inicial
+let cantidad = window.innerWidth < 500 ? 15 : 25;
+
+for (let i = 0; i < cantidad; i++) {
+    let k = crearKuromi();
+    k.style.animationDelay = (i * 0.2) + "s";
+    document.body.appendChild(k);
+}
+
+// 🔁 continuo
+setInterval(() => {
+    let k = crearKuromi();
+    document.body.appendChild(k);
+
+    if (document.body.children.length > 90) {
+        document.body.removeChild(document.body.children[1]);
+    }
+
+}, 900);
+
+</script>
+
+</body>
+</html>
